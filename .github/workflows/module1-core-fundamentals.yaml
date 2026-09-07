@@ -1,0 +1,49 @@
+name: Module 1 - Core Fundamentals
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch: # Trigger from UI
+
+env:
+  GLOBAL_APP_NAME: "my-microservice"
+
+jobs:
+  # First Job: Testing
+  unit-tests:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Print Runner & OS Details
+        run: |
+          echo "App Name: $GLOBAL_APP_NAME"
+          echo "Current Node Version: ${{ matrix.node-version }}"
+          echo "Runner OS: $RUNNER_OS"
+          echo "Git Commit SHA: $GITHUB_SHA"
+
+      - name: Simulate Tests Execution
+        run: |
+          echo "Testing step in progress..."
+          exit 0
+
+  # Second Job: Start only after first job succeed (Dependency)
+  package-and-verify:
+    name: Package Verification
+    runs-on: ubuntu-latest
+    needs: [unit-tests] # 'unit-tests' passed then only start
+    steps:
+      - name: Verify Prerequisite
+        run: |
+          echo "Unit tests for all matrix versions passed successfully!"
+          echo "Ready for next stage."
