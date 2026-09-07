@@ -47,3 +47,8 @@ jobs:
         run: |
           echo "Unit tests for all matrix versions passed successfully!"
           echo "Ready for next stage."
+      - name: Print Env
+        run: |
+          echo "Deploying to: $ENVIRONMENT on port $PORT"
+          echo "Host URL: ${{ env.HOST_URL }}"
+          echo "Host PASS: ${{ env.HOST_PASS }}"
