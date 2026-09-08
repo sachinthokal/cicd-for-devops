@@ -48,7 +48,17 @@ jobs:
           echo "Unit tests for all matrix versions passed successfully!"
           echo "Ready for next stage."
       - name: Print Env
+        env:
+          # १. GitHub Variables
+          HOST_URL: ${{ vars.HOST_URL }}
+          
+          # २. GitHub Secrets
+          HOST_PASS: ${{ secrets.HOST_PASS }}
+          
+          # ३. Local variables
+          ENVIRONMENT: "production"
+          PORT: "8080"
         run: |
           echo "Deploying to: $ENVIRONMENT on port $PORT"
-          echo "Host URL: ${{ env.HOST_URL }}"
-          echo "Host PASS: ${{ env.HOST_PASS }}"
+          echo "Host URL: $HOST_URL"
+          echo "Host PASS: $HOST_PASS"
