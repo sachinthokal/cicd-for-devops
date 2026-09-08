@@ -3,6 +3,8 @@ name: Module 1 - Core Fundamentals
 on:
   push:
     branches: [ "main" ]
+  pull_request:          # ही ओळ ॲड करा
+    branches: [ "main" ]
   workflow_dispatch: # Trigger from UI
 
 env:

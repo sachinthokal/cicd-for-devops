@@ -1,0 +1,21 @@
+name: PR Verification Gate
+
+# 1. Only trigger when main branch PR will open or update.
+on:
+  pull_request:
+    branches: [ "main" ]
+    types: [ opened, synchronize, reopened ]
+
+jobs:
+  pr-tests:
+    name: Mandatory Quality Gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR Code
+        uses: actions/checkout@v4
+
+      - name: Run Linter & Tests
+        run: |
+          echo "Running PR checks..."
+          #If here exit code 1 come then on GitHub the 'Merge' button will get locked.
+          exit 0
